@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 	"sync"
 
 	"github.com/urfave/cli/v2"
@@ -18,7 +19,9 @@ var (
 	name    string
 )
 
-func Exec(cmd ...string) error {
+func execute(cmd ...string) error {
+	fmt.Println(strings.Join(cmd[:], " "))
+
 	var c *exec.Cmd
 
 	if len(cmd) < 2 {
@@ -91,13 +94,13 @@ func main() {
 				return xerrors.New("Incorrect number of arguments.")
 			}
 
-			path := c.Args().Get(1)
-			host := c.String("host")
+			path := c.Args().First()
+			host := c.String("remote-host")
 			workdir := c.String("workdir")
 
 			folderURI := fmt.Sprintf("vscode-remote://ssh-remote+%s%s", host, workdir+"/"+path)
 
-			err := Exec("code", "--folder-uri", folderURI)
+			err := execute("code", "--folder-uri", folderURI)
 			if err != nil {
 				return err
 			}
