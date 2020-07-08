@@ -19,7 +19,7 @@ mv ./coderemote /usr/local/bin/
 ```
 VERSION=v0.1.0
 curl -L "https://github.com/Raita876/coderemote/releases/download/v0.1.0/release-lin64.zip" -o ./release-lin64.zip
-unzip ./release-mac64.zip
+unzip ./release-lin64.zip
 chmod +rx ./coderemote
 mv ./coderemote /usr/local/bin/
 ```
