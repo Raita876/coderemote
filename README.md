@@ -2,6 +2,28 @@
 
 This is CLI tool for opening remote directories with Vscode: remote-ssh plugin.
 
+# Install
+
+## Mac OS
+
+```
+VERSION=v0.1.0
+curl -L "https://github.com/Raita876/coderemote/releases/download/${VERSION}/release-mac64.zip" -o ./release-mac64.zip
+unzip ./release-mac64.zip
+chmod +rx ./coderemote
+mv ./coderemote /usr/local/bin/
+```
+
+## Linux
+
+```
+VERSION=v0.1.0
+curl -L "https://github.com/Raita876/coderemote/releases/download/v0.1.0/release-lin64.zip" -o ./release-lin64.zip
+unzip ./release-mac64.zip
+chmod +rx ./coderemote
+mv ./coderemote /usr/local/bin/
+```
+
 # How to use
 
 ```
