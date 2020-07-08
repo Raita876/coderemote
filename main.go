@@ -19,7 +19,7 @@ var (
 	name    string
 )
 
-func Exec(cmd ...string) error {
+func execute(cmd ...string) error {
 	fmt.Println(strings.Join(cmd[:], " "))
 
 	var c *exec.Cmd
@@ -100,7 +100,7 @@ func main() {
 
 			folderURI := fmt.Sprintf("vscode-remote://ssh-remote+%s%s", host, workdir+"/"+path)
 
-			err := Exec("code", "--folder-uri", folderURI)
+			err := execute("code", "--folder-uri", folderURI)
 			if err != nil {
 				return err
 			}
