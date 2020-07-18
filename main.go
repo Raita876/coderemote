@@ -89,23 +89,30 @@ func main() {
 				EnvVars: []string{"CODE_HOST"},
 			},
 		},
-		Action: func(c *cli.Context) error {
-			if c.Args().Len() != 1 {
-				return xerrors.New("Incorrect number of arguments.")
-			}
+		Commands: []*cli.Command{
+			{
+				Name:    "open",
+				Aliases: []string{"o"},
+				Usage:   "Open directory.",
+				Action: func(c *cli.Context) error {
+					if c.Args().Len() != 1 {
+						return xerrors.New("Incorrect number of arguments.")
+					}
 
-			path := c.Args().First()
-			host := c.String("remote-host")
-			workdir := c.String("workdir")
+					path := c.Args().First()
+					host := c.String("remote-host")
+					workdir := c.String("workdir")
 
-			folderURI := fmt.Sprintf("vscode-remote://ssh-remote+%s%s", host, workdir+"/"+path)
+					folderURI := fmt.Sprintf("vscode-remote://ssh-remote+%s%s", host, workdir+"/"+path)
 
-			err := execute("code", "--folder-uri", folderURI)
-			if err != nil {
-				return err
-			}
+					err := execute("code", "--folder-uri", folderURI)
+					if err != nil {
+						return err
+					}
 
-			return nil
+					return nil
+				},
+			},
 		},
 	}
 
