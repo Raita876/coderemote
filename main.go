@@ -93,7 +93,7 @@ func main() {
 			{
 				Name:    "open",
 				Aliases: []string{"o"},
-				Usage:   "Open directory.",
+				Usage:   "open directory. open <path>",
 				Action: func(c *cli.Context) error {
 					if c.Args().Len() != 1 {
 						return xerrors.New("Incorrect number of arguments.")
@@ -106,6 +106,22 @@ func main() {
 					folderURI := fmt.Sprintf("vscode-remote://ssh-remote+%s%s", host, workdir+"/"+path)
 
 					err := execute("code", "--folder-uri", folderURI)
+					if err != nil {
+						return err
+					}
+
+					return nil
+				},
+			},
+			{
+				Name:    "ls",
+				Aliases: []string{"l"},
+				Usage:   "ls workdir.",
+				Action: func(c *cli.Context) error {
+					host := c.String("remote-host")
+					workdir := c.String("workdir")
+
+					err := execute("ssh", host, "ls", workdir)
 					if err != nil {
 						return err
 					}
