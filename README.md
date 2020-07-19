@@ -23,3 +23,9 @@ unzip ./release-lin64.zip
 chmod +rx ./coderemote
 mv ./coderemote /usr/local/bin/
 ```
+
+# Help
+
+```
+$ coderemote --help
+```
