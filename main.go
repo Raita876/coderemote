@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 	"sync"
 
@@ -103,9 +104,16 @@ func main() {
 					host := c.String("remote-host")
 					workdir := c.String("workdir")
 
-					folderURI := fmt.Sprintf("vscode-remote://ssh-remote+%s%s", host, workdir+"/"+path)
+					absPath := filepath.Join(workdir, path)
 
-					err := execute("code", "--folder-uri", folderURI)
+					err := execute("ls", absPath, "&>", "/dev/null")
+					if err != nil {
+						return err
+					}
+
+					folderURI := fmt.Sprintf("vscode-remote://ssh-remote+%s%s", host, absPath)
+
+					err = execute("code", "--folder-uri", folderURI)
 					if err != nil {
 						return err
 					}
